@@ -168,6 +168,19 @@ public:
         mSamplerParams.compareFunc = func;
     }
 
+    void setUnpackAlignment(uint8_t v) noexcept {
+        mSamplerParams.unpackAlignment = v;
+    }
+    void setUnpackRowLength(uint16_t v) noexcept {
+        mSamplerParams.unpackRowLength = v;
+    }
+    uint8_t getUnpackAlignment() const noexcept {
+        return mSamplerParams.unpackAlignment;
+    }
+    uint16_t getUnpackRowLength() const noexcept {
+        return mSamplerParams.unpackRowLength;
+    }
+
     //! returns the minification filter value
     MinFilter getMinFilter() const noexcept { return mSamplerParams.filterMin; }
 
