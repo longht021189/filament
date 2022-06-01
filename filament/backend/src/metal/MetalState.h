@@ -327,7 +327,7 @@ struct SamplerState {
     }
 };
 
-static_assert(sizeof(SamplerState) == 12, "SamplerState unexpected size.");
+static_assert(sizeof(SamplerState) == 16, "SamplerState unexpected size.");
 
 struct SamplerStateCreator {
     id<MTLSamplerState> operator()(id<MTLDevice> device, const SamplerState& state) noexcept;

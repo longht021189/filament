@@ -32,7 +32,7 @@ public:
     void reset() noexcept;
 private:
     VulkanContext& mContext;
-    tsl::robin_map<uint32_t, VkSampler> mCache;
+    tsl::robin_map<uint64_t, VkSampler> mCache;
 };
 
 } // namespace filament::backend

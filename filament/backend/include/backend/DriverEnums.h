@@ -750,8 +750,12 @@ struct SamplerParams { // NOLINT
             uint8_t padding1                : 5;    //!< reserved. must be 0.
 
             uint8_t padding2                : 8;    //!< reserved. must be 0.
+
+            uint16_t unpackRowLength        : 16;   //!< GL_UNPACK_ROW_LENGTH
+            uint8_t unpackAlignment         : 8;    //!< GL_UNPACK_ALIGNMENT
+            uint8_t padding3                : 8;    //!< reserved. must be 0.
         };
-        uint32_t u;
+        uint64_t u;
     };
 private:
     friend inline bool operator < (SamplerParams lhs, SamplerParams rhs) {
@@ -759,7 +763,7 @@ private:
     }
 };
 
-static_assert(sizeof(SamplerParams) == sizeof(uint32_t), "SamplerParams must be 32 bits");
+static_assert(sizeof(SamplerParams) == sizeof(uint64_t), "SamplerParams must be 32 bits");
 
 //! blending equation function
 enum class BlendEquation : uint8_t {

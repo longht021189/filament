@@ -2745,6 +2745,13 @@ GLuint OpenGLDriver::getSamplerSlow(SamplerParams params) const noexcept {
     glSamplerParameteri(s, GL_TEXTURE_COMPARE_MODE, getTextureCompareMode(params.compareMode));
     glSamplerParameteri(s, GL_TEXTURE_COMPARE_FUNC, getTextureCompareFunc(params.compareFunc));
 
+    if (params.unpackAlignment > 0) {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, params.unpackAlignment);
+    }
+    if (params.unpackRowLength > 0) {
+        glPixelStorei(GL_UNPACK_ROW_LENGTH, params.unpackRowLength);
+    }
+
 #if defined(GL_EXT_texture_filter_anisotropic)
     auto& gl = mContext;
     if (gl.ext.EXT_texture_filter_anisotropic &&

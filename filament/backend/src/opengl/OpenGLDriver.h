@@ -366,7 +366,7 @@ private:
     // sampler buffer binding points (nullptr if not used)
     std::array<HwSamplerGroup*, Program::BINDING_COUNT> mSamplerBindings = {};   // 8 pointers
 
-    mutable tsl::robin_map<uint32_t, GLuint> mSamplerMap;
+    mutable tsl::robin_map<uint64_t, GLuint> mSamplerMap;
     mutable std::vector<GLTexture*> mExternalStreams;
 
     void attachStream(GLTexture* t, GLStream* stream) noexcept;
