@@ -33,10 +33,6 @@
 #include <utils/EntityManager.h>
 
 #include <math/mat3.h>
-#include <math/mat4.h>
-#include <math/vec3.h>
-
-#include <getopt/getopt.h>
 
 #include <stb_image.h>
 
@@ -107,6 +103,12 @@ static void cleanup(Engine* engine, View*, Scene*) {
     em.destroy(g_light);
 }
 
+void texture_callback(void* buffer, size_t size, void* user) {
+    // (Texture::PixelBufferDescriptor::Callback) &stbi_image_free
+    std::cout << "texture_callback" << std::endl;
+    stbi_image_free(buffer);
+}
+
 void loadTexture(Engine* engine, const std::string& filePath, Texture** map, bool sRGB = true) {
     if (!filePath.empty()) {
         Path path(filePath);
@@ -121,8 +123,7 @@ void loadTexture(Engine* engine, const std::string& filePath, Texture** map, boo
                         .format(sRGB ? Texture::InternalFormat::SRGB8 : Texture::InternalFormat::RGB8)
                         .build(*engine);
                 Texture::PixelBufferDescriptor buffer(data, size_t(w * h * 3),
-                        Texture::Format::RGB, Texture::Type::UBYTE,
-                        (Texture::PixelBufferDescriptor::Callback) &stbi_image_free);
+                        Texture::Format::RGB, Texture::Type::UBYTE, texture_callback);
                 (*map)->setImage(*engine, 0, std::move(buffer));
                 (*map)->generateMipmaps(*engine);
             } else {
@@ -335,14 +336,14 @@ static void setup(Engine* engine, View* view, Scene* scene) {
         }
     }
 
-    g_light = EntityManager::get().create();
+    /*g_light = EntityManager::get().create();
     LightManager::Builder(LightManager::Type::SUN)
             .color(Color::toLinear<ACCURATE>({0.98f, 0.92f, 0.89f}))
             .intensity(110000)
             .direction({0.6, -1, -0.8})
             .castShadows(true)
             .build(*engine, g_light);
-    //scene->addEntity(g_light);
+    scene->addEntity(g_light);*/
 }
 
 #define RES_DIR "/Users/thanhlong/Desktop/Projects/svm/surround-view-monitoring-APP/SVM/app/src/main/assets/data/3d"

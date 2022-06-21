@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD  14)
 set(LOG_PREFIX          "#########")
 set(SVM_G_DIR           "/Users/thanhlong/Desktop/Projects/svm/surround-view-monitoring-SDK/core/modules/SVM_lib/graphics")
 set(SVM_C_DIR           "/Users/thanhlong/Desktop/Projects/svm/surround-view-monitoring-SDK/core/modules/SVM_lib/common")
+set(CV_DIR              "/Users/thanhlong/Desktop/Projects/svm/opencv-4.5.3")
 set(GLM_DIR             "/Users/thanhlong/Desktop/Projects/svm/glm")
 set(PRJ_NAME            svm)
 
@@ -18,6 +19,7 @@ set(PRJ_NAME            svm)
 
 set(INCLUDE_DIRS        ${GENERATION_ROOT}
                         ${GLM_DIR}
+                        ${CV_DIR}/include
                         ${SVM_G_DIR}/include
                         ${SVM_C_DIR}/include)
 
