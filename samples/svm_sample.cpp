@@ -26,6 +26,7 @@
 #include <filament/TransformManager.h>
 #include <filament/Scene.h>
 #include <filament/Texture.h>
+#include <filament/Camera.h>
 
 #include <filamat/MaterialBuilder.h>
 
@@ -136,6 +137,12 @@ void loadTexture(Engine* engine, const std::string& filePath, Texture** map, boo
 }
 
 static void setup(Engine* engine, View* view, Scene* scene) {
+    Entity entity {};
+    utils::EntityManager::get().create(1, &entity);
+
+    auto cam = engine->createCamera(entity);
+    cam->setProjection(35, 0.642857, 1, 100);
+
     Path path(g_pbrConfig.materialDir);
     std::string name(path.getName());
 
