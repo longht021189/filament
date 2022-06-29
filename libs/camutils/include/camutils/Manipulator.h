@@ -279,6 +279,14 @@ public:
      */
     virtual void jumpToBookmark(const Bookmark& bookmark) = 0;
 
+    void getEyePosition(vec3* out) const noexcept {
+        *out = mEye;
+    }
+
+    void getTargetPosition(vec3* out) const noexcept {
+        *out = mTarget;
+    }
+
 protected:
     Manipulator(Mode mode, const Config& props);
 
