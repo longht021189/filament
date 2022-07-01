@@ -91,7 +91,7 @@ public:
             const FLOAT phi = dely * Base::mProps.orbitSpeed.y;
             const FLOAT maxPhi = MAX_PHI;
 
-            bookmark.orbit.phi = clamp(mGrabBookmark.orbit.phi + phi, -maxPhi, +maxPhi);
+            bookmark.orbit.phi = clamp(mGrabBookmark.orbit.phi + phi, std::max(-maxPhi, mPhiMin), +maxPhi);
             bookmark.orbit.theta = mGrabBookmark.orbit.theta + theta;
 
             jumpToBookmark(bookmark);
@@ -181,6 +181,10 @@ public:
         Base::mTarget = Base::mEye + vec3(x, y, z) * (mFlipped ? 1.0 : -1.0);
     }
 
+    void setOrbitPhiMin(FLOAT const value) noexcept override {
+        mPhiMin = value;
+    }
+
 private:
     GrabState mGrabState = INACTIVE;
     bool mFlipped = false;
@@ -193,6 +197,7 @@ private:
     int mGrabWinX;
     int mGrabWinY;
     vec3 mPivot;
+    FLOAT mPhiMin = -1000;
 };
 
 } // namespace camutils

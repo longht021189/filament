@@ -287,6 +287,8 @@ public:
         *out = mTarget;
     }
 
+    virtual void setOrbitPhiMin(FLOAT const value) noexcept {}
+
 protected:
     Manipulator(Mode mode, const Config& props);
 
