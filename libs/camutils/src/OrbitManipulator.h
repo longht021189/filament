@@ -112,8 +112,18 @@ public:
     }
 
     void scroll(int x, int y, FLOAT scrolldelta) override {
+        Bookmark const current {getCurrentBookmark()};
+        FLOAT extra {scrolldelta * Base::mProps.zoomSpeed};
+        FLOAT const newDistance {current.orbit.distance + extra};
+
+        if (newDistance < mDistanceMin) {
+            extra = mDistanceMin - current.orbit.distance;
+        } else if (newDistance > mDistanceMax) {
+            extra = mDistanceMax - current.orbit.distance;
+        }
+
         const vec3 gaze = normalize(Base::mTarget - Base::mEye);
-        const vec3 movement = gaze * Base::mProps.zoomSpeed * -scrolldelta;
+        const vec3 movement = gaze * -extra;
         const vec3 v0 = mPivot - Base::mEye;
         Base::mEye += movement;
         Base::mTarget += movement;
@@ -185,6 +195,14 @@ public:
         mPhiMin = value;
     }
 
+    void setOrbitDistanceMin(FLOAT const value) noexcept override {
+        mDistanceMin = value;
+    }
+
+    void setOrbitDistanceMax(FLOAT const value) noexcept override {
+        mDistanceMax = value;
+    }
+
 private:
     GrabState mGrabState = INACTIVE;
     bool mFlipped = false;
@@ -197,7 +215,10 @@ private:
     int mGrabWinX;
     int mGrabWinY;
     vec3 mPivot;
-    FLOAT mPhiMin = -1000;
+
+    FLOAT mPhiMin = std::numeric_limits<FLOAT>::min();
+    FLOAT mDistanceMin = std::numeric_limits<FLOAT>::min();
+    FLOAT mDistanceMax = std::numeric_limits<FLOAT>::max();
 };
 
 } // namespace camutils

@@ -279,15 +279,9 @@ public:
      */
     virtual void jumpToBookmark(const Bookmark& bookmark) = 0;
 
-    void getEyePosition(vec3* out) const noexcept {
-        *out = mEye;
-    }
-
-    void getTargetPosition(vec3* out) const noexcept {
-        *out = mTarget;
-    }
-
     virtual void setOrbitPhiMin(FLOAT const value) noexcept {}
+    virtual void setOrbitDistanceMin(FLOAT const value) noexcept {}
+    virtual void setOrbitDistanceMax(FLOAT const value) noexcept {}
 
 protected:
     Manipulator(Mode mode, const Config& props);
