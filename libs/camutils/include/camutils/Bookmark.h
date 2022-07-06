@@ -54,16 +54,19 @@ struct CAMUTILS_PUBLIC Bookmark {
      */
     static double duration(Bookmark<FLOAT> a, Bookmark<FLOAT> b);
 
-private:
-    struct MapParams {
-        FLOAT extent;
-        filament::math::vec2<FLOAT> center;
-    };
     struct OrbitParams {
         FLOAT phi;
         FLOAT theta;
         FLOAT distance;
         filament::math::vec3<FLOAT> pivot;
+    };
+
+    OrbitParams orbit;
+
+private:
+    struct MapParams {
+        FLOAT extent;
+        filament::math::vec2<FLOAT> center;
     };
     struct FlightParams {
         FLOAT pitch;
@@ -72,7 +75,6 @@ private:
     };
     Mode mode;
     MapParams map;
-    OrbitParams orbit;
     FlightParams flight;
     friend class FreeFlightManipulator<FLOAT>;
     friend class OrbitManipulator<FLOAT>;
